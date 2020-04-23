@@ -13,7 +13,7 @@ A bash script that provides some conveniance aliases for command line to switch 
 It assumes that the AWS CLI is installed, as well as that python 2.x is available, if MFA support is to be used.
 
 * Copy the script to the home directory of your account
-* In your $HOME/.zshrc, add an entry
+* In your $HOME/.bashrc, add an entry
   . $HOME/aws_aliases
 * When a new command line window (with bash) is opened, three commands will be available:
 
