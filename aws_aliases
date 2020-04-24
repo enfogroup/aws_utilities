@@ -58,7 +58,7 @@ function _awsAssumeRole() {
     local role_session_name=$(aws iam get-user --query User.UserName --output text --profile "${source_profile}")
     local mfa_serial="$(aws configure get mfa_serial --profile ${source_profile})"
     if [[ -n $mfa_serial ]]; then
-        read "mfa_token?Enter MFA token (6 digits) for profile ${profile}:"
+        read -p "Enter MFA token (6 digits) for profile ${profile}:" mfa_token 
         local credentials_text=$(aws sts assume-role --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' --role-arn "${role_arn}" --role-session-name cli-"${role_session_name}" --serial-number "${mfa_serial}" --token-code "${mfa_token}" --duration-seconds 43200 --profile "${source_profile}" --output text)
     else    
         local credentials_text=$(aws sts assume-role  --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' --role-arn "${role_arn}" --role-session-name cli-"${role_session_name}" --profile "${source_profile}" --output text)
@@ -74,7 +74,7 @@ function _awsAssumeRole() {
 function _awsMfaAuthenticate() {
     local mfa_serial=$1
     local profile=$2
-    read "mfa_token?Enter MFA token (6 digits) for profile ${profile}:" 
+    read -p "Enter MFA token (6 digits) for profile ${profile}:" mfa_token
     local credentials_text=$(aws sts get-session-token --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' --serial-number "${mfa_serial}" --token-code "${mfa_token}" --profile ${profile} --output text)
     if [[ -n ${credentials_text} ]]; then
         read access_key_id secret_access_key session_token <<<${credentials_text}
