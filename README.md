@@ -12,9 +12,9 @@ repositories and does not belong to a specific project or solution.
 A bash script that provides some conveniance aliases for command line to switch and list between AWS profiles.
 It assumes that the AWS CLI is installed, as well as that python 2.x is available, if MFA support is to be used.
 
-* Copy the script to the home directory of your account
+* Clone the repository.
 * In your $HOME/.bashrc, add an entry
-  . $HOME/aws_aliases
+  . <path to repository>/aws_aliases
 * When a new command line window (with bash) is opened, three commands will be available:
 
 - awsall  			- List all available profiles
